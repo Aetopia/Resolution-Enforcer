@@ -17,7 +17,6 @@ Options.read('Options.ini')
 
 # Get title and executable name from an active window.
 def Window():
-    sleep(0.1)
     HWND = GetForegroundWindow()
     PID = GetWindowThreadProcessId(HWND)[1]
     Title = GetWindowText(HWND)
@@ -28,6 +27,7 @@ def Window():
 def EnforceResolution():
     Hook = False
     while True:
+        sleep(0.1)
         Title, Executable = Window()
         
         if Executable == 'ApplicationFrameHost.exe':
@@ -57,6 +57,7 @@ def EnforceResolution():
 def RestoreResolution():
     Reset = False
     while True:
+        sleep(0.1)
         Title, Executable = Window()
 
         if Executable == 'ApplicationFrameHost.exe':
