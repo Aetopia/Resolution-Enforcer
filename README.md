@@ -2,7 +2,7 @@
 Enforce desktop resolutions on specific applications. (Win32 and UWP apps.)
 
 ## Aim
-The aim of this project is to create a program that can restore fullscreen resolution changing into applications by enforcing application specific desktop resolutions.
+The aim of this project is to create a program that can restore fullscreen resolution changing functionality into applications by enforcing application specific desktop resolutions.
 Mostly aimed at games or software which do not offer an option to select the fullscreen resolution. 
 
 ## Setup
