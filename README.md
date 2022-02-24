@@ -12,11 +12,12 @@ Mostly aimed at games or software which do not offer an option to select the ful
 pip install pywintypes
 pip install psutil
 ```
-3. Open up `Options.ini`.
-Add UWP apps or Win32 apps that should be filtered by the program.
+3. Open up `Options.ini`.  
+                  
+Add UWP apps or Win32 apps that should be filtered by the program.        
 
-UWP Apps => Only include the name of the app. (Case Sensitive.)
-Win32 Apps => Only include the name of executable .(Case Sensitive.)
+UWP Apps => Only include the name of the app. (Case Sensitive.)        
+Win32 Apps => Only include the name of executable. (Case Sensitive.)             
 
 Example:
 ```ini
