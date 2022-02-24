@@ -14,7 +14,7 @@ Options.read('Options.ini')
 def EnforceResolution():
     Hook = False
     while True:
-        sleep(float(Options['General']['Speed']))
+        sleep(0.1)
         HWND = GetForegroundWindow()
         Title = GetWindowText(HWND)
         PID = GetWindowThreadProcessId(HWND)[1]  
@@ -47,7 +47,7 @@ def EnforceResolution():
 def RestoreResolution():
     Reset = False
     while True:
-        sleep(float(Options['General']['Speed']))
+        sleep(0.1)
         HWND = GetForegroundWindow()
         Title = GetWindowText(HWND)
         PID = GetWindowThreadProcessId(HWND)[1] 
