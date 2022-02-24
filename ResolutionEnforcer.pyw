@@ -4,22 +4,26 @@ from time import sleep
 from psutil import Process
 from win32api import ChangeDisplaySettings
 from win32con import DM_PELSWIDTH, DM_PELSHEIGHT
-from  pywintypes import DEVMODEType
+from pywintypes import DEVMODEType
 from configparser import ConfigParser
 from os import path
 
 Options = ConfigParser()
 Options.read('Options.ini')
 
+def Window():
+    sleep(0.1)
+    HWND = GetForegroundWindow()
+    Title = GetWindowText(HWND)
+    PID = GetWindowThreadProcessId(HWND)[1]  
+    Executable = path.split(path.abspath(Process(PID).exe()))[1]
+    return (Title, Executable)
+
 def EnforceResolution():
     Hook = False
     while True:
-        sleep(0.1)
-        HWND = GetForegroundWindow()
-        Title = GetWindowText(HWND)
-        PID = GetWindowThreadProcessId(HWND)[1]  
-        Executable = path.split(path.abspath(Process(PID).exe()))[1]
-
+        Title, Executable = Window()
+        
         if Executable == 'ApplicationFrameHost.exe':
             if Title in Options['Applications']:
                 if Hook is False:
@@ -47,11 +51,7 @@ def EnforceResolution():
 def RestoreResolution():
     Reset = False
     while True:
-        sleep(0.1)
-        HWND = GetForegroundWindow()
-        Title = GetWindowText(HWND)
-        PID = GetWindowThreadProcessId(HWND)[1] 
-        Executable = path.split(path.abspath(Process(PID).exe()))[1]
+        Title, Executable = Window()
 
         if Executable == 'ApplicationFrameHost.exe':
             if Title not in Options['Applications']:
