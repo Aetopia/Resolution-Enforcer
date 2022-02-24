@@ -9,6 +9,10 @@ Mostly aimed at games or software which do not offer an option to select the ful
 1. Install Python `3.10`.
 2. Install the following modules or use `requirements.txt`.
 ```
+pip install -r "requirements.txt" 
+```
+OR
+```
 pip install pywintypes
 pip install psutil
 ```
