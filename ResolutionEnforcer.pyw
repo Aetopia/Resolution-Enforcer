@@ -25,21 +25,21 @@ def Window():
 
 # Filter out applications to enforce resolutions on.
 def EnforceResolution():
-    Hook = False
+    Enforce = False
     while True:
         sleep(0.1)
         Title, Executable = Window()
         
         if Executable == 'ApplicationFrameHost.exe':
             if Title in Options['Applications']:
-                if Hook is False:
+                if Enforce is False:
                     Resolution = Options['Applications'][str(Title)]
-                    Hook = True   
+                    Enforce = True   
 
         elif Executable in Options['Applications']:
-            if Hook is False:
+            if Enforce is False:
                 Resolution = Options['Applications'][str(Executable)]
-                Hook = True 
+                Enforce = True 
 
         else: Resolution = '0x0'  
 
@@ -48,26 +48,26 @@ def EnforceResolution():
         Resolution.PelsWidth, Resolution.PelsHeight = int(Height.strip()), int(Width.strip()) 
         Resolution.Fields = DM_PELSWIDTH | DM_PELSHEIGHT
 
-        if Hook:
+        if Enforce:
             ChangeDisplaySettings(Resolution, 0)
             break
     RestoreResolution()
 
-# Restore the default destkop resolution.
+# Restore the default desktop resolution.
 def RestoreResolution():
-    Reset = False
+    Restore = False
     while True:
         sleep(0.1)
         Title, Executable = Window()
 
         if Executable == 'ApplicationFrameHost.exe':
             if Title not in Options['Applications']:
-                Reset = True
+                Restore = True
         
         elif Executable not in Options['Applications']:
-            Reset = True
+            Restore = True
 
-        if Reset:
+        if Restore:
             ChangeDisplaySettings(None, 0)
             break
     EnforceResolution()    
