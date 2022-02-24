@@ -18,7 +18,7 @@ pip install psutil
 ```
 3. Open up `Options.ini`.  
                   
-Add UWP apps or Win32 apps that should be filtered by the program.        
+Add UWP apps or Win32 apps that should be filtered out by the program.        
 
 UWP Apps => Only include the name of the app. (Case Sensitive.)        
 Win32 Apps => Only include the name of executable. (Case Sensitive.)             
