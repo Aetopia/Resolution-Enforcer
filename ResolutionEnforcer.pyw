@@ -15,7 +15,7 @@ from os import path
 Options = ConfigParser()
 Options.read('Options.ini')
 
-# Get title and executable name from an active window.
+# Get the title and executable name from an active window.
 def Window():
     HWND = GetForegroundWindow()
     PID = GetWindowThreadProcessId(HWND)[1]
