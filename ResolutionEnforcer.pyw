@@ -28,7 +28,8 @@ def EnforceResolution():
     Enforce = False
     while True:
         sleep(0.1)
-        Title, Executable = Window()
+        try: Title, Executable = Window()
+        except: Title, Executable = None, None
         
         if Executable == 'ApplicationFrameHost.exe':
             if Title in Options['Applications']:
@@ -58,7 +59,8 @@ def RestoreResolution():
     Restore = False
     while True:
         sleep(0.1)
-        Title, Executable = Window()
+        try: Title, Executable = Window()
+        except: Title, Executable = None, None
 
         if Executable == 'ApplicationFrameHost.exe':
             if Title not in Options['Applications']:
