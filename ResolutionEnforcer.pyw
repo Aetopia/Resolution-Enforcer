@@ -13,7 +13,7 @@ from os import path
 
 # Options
 Options = ConfigParser()
-Options.read('Options.ini')
+Options.read(f'{path.dirname(path.abspath(__file__))}/Options.ini')
 
 # Get the title and executable name from an active window.
 def Window():
