@@ -13,7 +13,7 @@ pip install -r "requirements.txt"
 ```
 OR
 ```
-pip install pywintypes
+pip install pywin32
 pip install psutil
 ```
 3. Open up `Options.ini`.  
