@@ -12,8 +12,7 @@ from configparser import ConfigParser
 from os import path
 
 # Options
-Options = ConfigParser()
-Options.read(f'{path.dirname(path.abspath(__file__))}/Options.ini')
+File = f'{path.dirname(path.abspath(__file__))}/Options.ini'
 
 # Get the title and executable name from an active window.
 def Window():
@@ -27,55 +26,71 @@ def Window():
 def EnforceResolution():
     Enforce = False
     while True:
-        sleep(0.1)
-        try: Title, Executable = Window()
-        except: Title, Executable = None, None
-        
-        if Executable == 'ApplicationFrameHost.exe':
-            if Title in Options['Applications']:
+        try:
+            sleep(0.1)
+            Options = ConfigParser()
+            Options.read(File) 
+            try: Title, Executable = Window()
+            except: Title, Executable = None, None
+            
+            if Executable == 'ApplicationFrameHost.exe':
+                if Title in Options['Applications']:
+                    if Enforce is False:
+                        Resolution = Options['Applications'][str(Title)]
+                        Enforce = True   
+
+            elif Executable in Options['Applications']:
                 if Enforce is False:
-                    Resolution = Options['Applications'][str(Title)]
-                    Enforce = True   
+                    Resolution = Options['Applications'][str(Executable)]
+                    Enforce = True 
 
-        elif Executable in Options['Applications']:
-            if Enforce is False:
-                Resolution = Options['Applications'][str(Executable)]
-                Enforce = True 
+            else: Resolution = '0x0'  
 
-        else: Resolution = '0x0'  
+            Height, Width = Resolution.split('x')
+            Resolution = DEVMODEType()
+            Resolution.PelsWidth, Resolution.PelsHeight = int(Height.strip()), int(Width.strip()) 
+            Resolution.Fields = DM_PELSWIDTH | DM_PELSHEIGHT
 
-        Height, Width = Resolution.split('x')
-        Resolution = DEVMODEType()
-        Resolution.PelsWidth, Resolution.PelsHeight = int(Height.strip()), int(Width.strip()) 
-        Resolution.Fields = DM_PELSWIDTH | DM_PELSHEIGHT
-
-        if Enforce:
-            ChangeDisplaySettings(Resolution, 0)
-            break
+            if Enforce:
+                ChangeDisplaySettings(Resolution, 0)
+                break
+        except KeyboardInterrupt: exit()  
+        finally: pass  
     RestoreResolution()
 
 # Restore the default desktop resolution.
 def RestoreResolution():
     Restore = False
     while True:
-        sleep(0.1)
-        try: Title, Executable = Window()
-        except: Title, Executable = None, None
+        try:
+            sleep(0.1)
+            Options = ConfigParser()
+            Options.read(File) 
+            try: Title, Executable = Window()
+            except: Title, Executable = None, None
 
-        if Executable == 'ApplicationFrameHost.exe':
-            if Title not in Options['Applications']:
+            if Executable == 'ApplicationFrameHost.exe':
+                if Title not in Options['Applications']:
+                    Restore = True
+            
+            elif Executable not in Options['Applications']:
                 Restore = True
-        
-        elif Executable not in Options['Applications']:
-            Restore = True
 
-        if Restore:
-            ChangeDisplaySettings(None, 0)
-            break
-    EnforceResolution()    
+            if Restore:
+                ChangeDisplaySettings(None, 0)
+                break
+        except KeyboardInterrupt: exit()
+        finally: pass   
+    EnforceResolution()  
 
 def Main():
-    EnforceResolution()
-                             
+    try:
+        if path.exists(File) is False:
+            with open(File, 'w') as Options_File:
+                Options_File.write('[Applications]\n; Title or Executable Name = Resolution')                    
+        EnforceResolution()
+    except KeyboardInterrupt:
+        exit()
+
 if __name__ == '__main__':
     Main()
