@@ -11,8 +11,12 @@ from time import sleep
 from configparser import ConfigParser
 from os import path
 
+# Settings
+Delay = 0.1
+
 # Options
-File = f'{path.dirname(path.abspath(__file__))}/Options.ini'
+Options = ConfigParser()
+Options.read(f'{path.dirname(path.abspath(__file__))}/Options.ini')
 
 # Get the title and executable name from an active window.
 def Window():
@@ -27,9 +31,7 @@ def EnforceResolution():
     Enforce = False
     while True:
         try:
-            sleep(0.1)
-            Options = ConfigParser()
-            Options.read(File) 
+            sleep(Delay)
             try: Title, Executable = Window()
             except: Title, Executable = None, None
             
@@ -54,8 +56,7 @@ def EnforceResolution():
             if Enforce:
                 ChangeDisplaySettings(Resolution, 0)
                 break
-        except KeyboardInterrupt: exit()  
-        finally: pass  
+        except: pass    
     RestoreResolution()
 
 # Restore the default desktop resolution.
@@ -63,9 +64,7 @@ def RestoreResolution():
     Restore = False
     while True:
         try:
-            sleep(0.1)
-            Options = ConfigParser()
-            Options.read(File) 
+            sleep(Delay)
             try: Title, Executable = Window()
             except: Title, Executable = None, None
 
@@ -78,19 +77,12 @@ def RestoreResolution():
 
             if Restore:
                 ChangeDisplaySettings(None, 0)
-                break
-        except KeyboardInterrupt: exit()
-        finally: pass   
-    EnforceResolution()  
+                break 
+        except: pass     
+    EnforceResolution()    
 
 def Main():
-    try:
-        if path.exists(File) is False:
-            with open(File, 'w') as Options_File:
-                Options_File.write('[Applications]\n; Title or Executable Name = Resolution')                    
-        EnforceResolution()
-    except KeyboardInterrupt:
-        exit()
-
+    EnforceResolution()
+                             
 if __name__ == '__main__':
     Main()
