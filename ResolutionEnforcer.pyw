@@ -1,5 +1,5 @@
 # Windows
-from psutil import Process, NoSuchProcess
+from psutil import Process
 from win32gui import GetWindowText, GetForegroundWindow
 from win32process import GetWindowThreadProcessId
 from win32api import ChangeDisplaySettings
@@ -83,7 +83,7 @@ def enforce_resolution():
                 break
         except KeyboardInterrupt:
             _exit(1)
-        except (NoSuchProcess, ValueError):
+        except:
             pass    
     restore_resolution()
 
@@ -113,7 +113,7 @@ def restore_resolution():
                 break
         except KeyboardInterrupt:
             _exit(1)
-        except (NoSuchProcess, ValueError):
+        except:
             pass       
     enforce_resolution()
 
