@@ -49,7 +49,6 @@ def get_window():
 
 # Filter out applications to enforce resolutions on.
 
-
 def enforce_resolution():
     enforce = False
     while True:
