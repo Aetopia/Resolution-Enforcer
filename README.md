@@ -35,7 +35,6 @@ pip install psutil
 
    [Applications]
    ; Title or Executable Name = Resolution
-
    Minecraft = 1280x720
    HaloInfinite.exe = 1600x900
    ```
