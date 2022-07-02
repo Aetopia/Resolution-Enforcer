@@ -1,0 +1,1 @@
+nuitka --remove-output --standalone --onefile --disable-console ResolutionEnforcer.pyw
