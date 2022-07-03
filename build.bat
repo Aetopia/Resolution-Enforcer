@@ -1,1 +1,2 @@
-nuitka --remove-output --standalone --onefile --disable-console ResolutionEnforcer.pyw
+set version=1.0.0.0
+nuitka --remove-output --standalone --onefile --disable-console ResolutionEnforcer.py --windows-company-name=Aetopia --windows-product-name="Resolution Enforcer" --windows-file-version=%version% --windows-product-version=%version% --windows-file-description="Resolution Enforcer"
