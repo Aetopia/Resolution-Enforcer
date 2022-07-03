@@ -6,17 +6,9 @@ The aim of this project is to create a program that can restore external fullscr
 
 Mostly aimed at games or software which do not offer an option to select a external fullscreen resolution. 
 
-## Build
-1. Install Python `3.10`.
-2. Install the following modules or use `requirements.txt`.
-```
-pip install -r "requirements.txt" 
-```
-OR
-```
-pip install pywin32
-pip install psutil
-```
+# Downloads
+### [Find Pre-Compiled Binaries here.](https://github.com/Aetopia/Resolution-Enforcer/releases)
+
 # Usage
 Run the script/application to generate an options file.        
 
@@ -41,3 +33,14 @@ HaloInfinite.exe = 1600x900
 ```
 
 To close Resolution Enforcer, open up Task Manager and kill `Resolution Enforcer`.
+
+## Build
+1. Install Python `3.10`.
+2. Install the following modules or use `requirements.txt`.
+```
+pip install -r "requirements.txt" 
+```
+OR
+```
+pip install pywin32 psutil
+```
