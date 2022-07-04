@@ -44,3 +44,4 @@ OR
 ```
 pip install pywin32 psutil
 ```
+3. Run `build.bat`.
