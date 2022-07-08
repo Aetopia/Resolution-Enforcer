@@ -1,5 +1,6 @@
 # Windows
 from psutil import Process
+import psutil
 from win32gui import GetWindowText, GetForegroundWindow
 from win32process import GetWindowThreadProcessId
 from win32api import ChangeDisplaySettings
@@ -11,7 +12,6 @@ from time import sleep
 from configparser import ConfigParser
 from os import path, _exit, startfile, chdir
 from sys import argv
-
 # Options
 class options:
     def get():
@@ -43,6 +43,8 @@ def get_window():
     PID = GetWindowThreadProcessId(HWND)[1]
     title = GetWindowText(HWND).lower()
     executable = path.split(path.abspath(Process(PID).exe()))[1].lower()
+    with open('windows.txt', 'a+') as f:
+        f.write(f'{title} | {executable}\n')
     return (title, executable)
 
 # Filter out applications to enforce resolutions on.
@@ -59,7 +61,6 @@ def enforce_resolution():
 
             if executable == 'ApplicationFrameHost.exe':
                 if title in config['Applications']:
-
                     if enforce is False:
                         resolution = config['Applications'][str(title)]
                         enforce = True
@@ -84,7 +85,7 @@ def enforce_resolution():
         except KeyboardInterrupt:
             _exit(1)
         except:
-            continue
+            pass
     restore_resolution()
 
 # Restore the default desktop resolution.
@@ -115,7 +116,7 @@ def restore_resolution():
         except KeyboardInterrupt:
             _exit(1)
         except:
-            continue
+            pass
     enforce_resolution()
 
 
