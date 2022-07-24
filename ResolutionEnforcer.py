@@ -1,6 +1,5 @@
 # Windows
 from psutil import Process
-import psutil
 from win32gui import GetWindowText, GetForegroundWindow
 from win32process import GetWindowThreadProcessId
 from win32api import ChangeDisplaySettings
@@ -43,8 +42,6 @@ def get_window():
     PID = GetWindowThreadProcessId(HWND)[1]
     title = GetWindowText(HWND).lower()
     executable = path.split(path.abspath(Process(PID).exe()))[1].lower()
-    with open('windows.txt', 'a+') as f:
-        f.write(f'{title} | {executable}\n')
     return (title, executable)
 
 # Filter out applications to enforce resolutions on.
