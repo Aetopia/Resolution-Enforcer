@@ -12,6 +12,8 @@ from configparser import ConfigParser
 from os import path, _exit, startfile, chdir
 from sys import argv
 # Options
+
+
 class options:
     def get():
         config = ConfigParser()
@@ -38,10 +40,10 @@ Delay = 0.1
 
 
 def get_window():
-    HWND = GetForegroundWindow()
-    PID = GetWindowThreadProcessId(HWND)[1]
-    title = GetWindowText(HWND).lower()
-    executable = path.split(path.abspath(Process(PID).exe()))[1].lower()
+    hwnd = GetForegroundWindow()
+    title = GetWindowText(hwnd).lower()
+    executable = path.split(path.abspath(
+        Process(GetWindowThreadProcessId(hwnd)[1]).exe()))[1].lower()
     return (title, executable)
 
 # Filter out applications to enforce resolutions on.
@@ -53,7 +55,6 @@ def enforce_resolution():
         try:
             config = options.get()
             sleep(float(config['General']['Delay']))
-
             title, executable = get_window()
 
             if executable == 'ApplicationFrameHost.exe':
@@ -70,10 +71,10 @@ def enforce_resolution():
             else:
                 resolution = '0x0'
 
-            height, width = resolution.split('x')
+            width, height = resolution.split('x')
+            width, height = int(width.strip()), int(height.strip())
             resolution = DEVMODEType()
-            resolution.PelsWidth, resolution.PelsHeight = int(
-                height.strip()), int(width.strip())
+            resolution.PelsWidth, resolution.PelsHeight = width, height
             resolution.Fields = DM_PELSWIDTH | DM_PELSHEIGHT
 
             if enforce:
@@ -94,11 +95,7 @@ def restore_resolution():
         try:
             config = options.get()
             sleep(float(config['General']['Delay']))
-
-            try:
-                title, executable = get_window()
-            except:
-                title, executable = None, None
+            title, executable = get_window()
 
             if executable == 'ApplicationFrameHost.exe':
                 if title not in config['Applications']:
