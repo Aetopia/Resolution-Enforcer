@@ -56,8 +56,9 @@ def enforce_resolution():
             config = options.get()
             sleep(float(config['General']['Delay']))
             title, executable = get_window()
+            print(title, executable)
 
-            if executable == 'ApplicationFrameHost.exe':
+            if executable == 'applicationframehost.exe':
                 if title in config['Applications']:
                     if enforce is False:
                         resolution = config['Applications'][str(title)]
@@ -97,7 +98,7 @@ def restore_resolution():
             sleep(float(config['General']['Delay']))
             title, executable = get_window()
 
-            if executable == 'ApplicationFrameHost.exe':
+            if executable == 'applicationframehost.exe':
                 if title not in config['Applications']:
                     restore = True
 
