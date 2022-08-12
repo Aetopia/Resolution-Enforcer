@@ -56,7 +56,6 @@ def enforce_resolution():
             config = options.get()
             sleep(float(config['General']['Delay']))
             title, executable = get_window()
-            print(title, executable)
 
             if executable == 'applicationframehost.exe':
                 if title in config['Applications']:
